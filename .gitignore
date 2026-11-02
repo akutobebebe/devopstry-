@@ -6,3 +6,23 @@ __pycache__/
 *.tfvars
 .env
 .DS_Store
+
+# Terraform local state, plans, variables, and crash files
+*.tfstate
+*.tfstate.*
+*.tfvars.json
+*.tfplan
+*.plan
+.terraform.tfstate.lock.info
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local credentials and private keys
+.env.*
+*.pem
+*.key
+.aws/
