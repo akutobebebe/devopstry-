@@ -15,6 +15,13 @@ class AppTest(unittest.TestCase):
     def test_health(self):
         self.assertEqual(self.request("/health"), (200, {"status": "ok"}))
 
+    def test_home_page_has_health_button(self):
+        handler = Handler.__new__(Handler)
+        handler.path = "/"
+        with patch.object(handler, "respond_html") as respond_html:
+            handler.do_GET()
+            self.assertIn("fetch('/health')", respond_html.call_args.args[0])
+
     def test_info_uses_environment(self):
         with patch.dict("os.environ", {"APP_ENV": "staging"}):
             self.assertEqual(self.request("/info"), (200, {"environment": "staging"}))
