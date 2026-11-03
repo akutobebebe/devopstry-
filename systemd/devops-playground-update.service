@@ -1,0 +1,11 @@
+[Unit]
+Description=Check GitHub for a new DevOps Playground commit
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=ssm-user
+WorkingDirectory=/home/ssm-user/devops
+ExecStart=/home/ssm-user/devops/scripts/check-for-updates.sh
+
