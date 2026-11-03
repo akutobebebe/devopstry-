@@ -13,5 +13,14 @@ sudo docker run -d \
   -p 8080:8080 \
   devops-playground
 
-curl --fail --retry 10 --retry-delay 1 --retry-connrefused \
-  http://127.0.0.1:8080/health
+for attempt in {1..15}; do
+  if curl --fail --silent http://127.0.0.1:8080/health; then
+    printf '\n'
+    exit 0
+  fi
+  sleep 1
+done
+
+echo "The app did not become healthy. Recent container logs:" >&2
+sudo docker logs --tail 50 devops-app >&2
+exit 1
