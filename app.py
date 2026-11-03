@@ -10,7 +10,7 @@ PAGE = """<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DevOps Playground222</title>
+  <title>DevOps Playground</title>
   <style>
     body { font-family: system-ui, sans-serif; max-width: 600px; margin: 12vh auto; padding: 0 24px; }
     button { padding: 12px 18px; font: inherit; cursor: pointer; }
