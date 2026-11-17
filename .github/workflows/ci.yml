@@ -26,7 +26,7 @@ jobs:
       
   publish-image:
     needs: test-and-build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/ubuntu-lab'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
