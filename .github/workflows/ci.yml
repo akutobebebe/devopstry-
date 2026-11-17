@@ -22,3 +22,29 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devops-playground .
+
+      
+  publish-image:
+    needs: test-and-build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/ubuntu-lab'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/akutobebebe/devops-playground
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Build image
+        run: docker build -t "$IMAGE:$GITHUB_SHA" .
+
+      - name: Publish image
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s\n' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker push "$IMAGE:$GITHUB_SHA"
+
